@@ -73,19 +73,19 @@ if upgrade_header and upgrade_header:lower() == "websocket" then
             break
         end
 
-	    -- parse json data
-	    local parsed_data = cjson.decode(req_data)
-	    local parsed_method = parsed_data.method
-	    local parsed_params = parsed_data.params
-	    if parsed_method == "call" then
-	        parsed_method = parsed_params[2]
-	        parsed_params = parsed_params[3]
+        -- parse json data
+        local parsed_data = cjson.decode(req_data)
+        local parsed_method = parsed_data.method
+        local parsed_params = parsed_data.params
+        if parsed_method == "call" then
+            parsed_method = parsed_params[2]
+            parsed_params = parsed_params[3]
         end
-	    -- ngx.log(ngx.NOTICE, "--00-- parsed data --00--:", parsed_method, cjson.encode(parsed_params))
+        -- ngx.log(ngx.NOTICE, "--00-- parsed data --00--:", parsed_method, cjson.encode(parsed_params))
 
         -- limit logic
         if bots[real_client_ip] and parsed_method and api_list[parsed_method] then
-	        -- ngx.log(ngx.NOTICE, "--01-- process " .. parsed_method .. "--01--:", cjson.encode(parsed_params))
+            -- ngx.log(ngx.NOTICE, "--01-- process " .. parsed_method .. "--01--:", cjson.encode(parsed_params))
             local rate_limit = api_list[parsed_method]
             local lim, err = ratelimit.new("bts", rate_limit, rate_burst, rate_duration)
             if not lim then
