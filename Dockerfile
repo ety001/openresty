@@ -5,7 +5,7 @@ ENV APP_TYPE bts
 ENV NGINX_CONF_FILENAME default
 ENV LUA_FILENAME default
 
-RUN opm install timebug/lua-resty-redis-ratelimit
+RUN opm install openresty/lua-resty-websocket timebug/lua-resty-redis-ratelimit
 
 VOLUME [ "/var/run/openresty" ]
 VOLUME [ "/etc/nginx/ssl" ]
